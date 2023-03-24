@@ -1,0 +1,27 @@
+Given an integer array nums that may contain duplicates, return all possible subsets (the power set).
+The solution set must not contain duplicate subsets. Return the solution in any order.
+
+Example 1:
+Input: nums = [1,2,2]
+Output: [[],[1],[1,2],[1,2,2],[2],[2,2]]
+
+   void f(int ind,vector<int>& nums,vector<int>&res,vector<vector<int>>&ans)
+    {
+            ans.push_back(res);
+            return;
+        // ignore duplicate without using set same as combsum 2 but in comb2 one cond more for sum we check
+        for(int i=ind;i<nums.size();i++)
+        {
+            if(i!=ind&&nums[i-1]==nums[i]) continue; // ek baar first per like 1 ko ind choose kr liye dubara first index per 1 ko choose nhi karna hai
+            res.push_back(nums[i]);
+            f(i+1,nums,res,ans);
+            res.pop_back();
+        }
+    }
+    vector<vector<int>> subsetsWithDup(vector<int>& nums) {
+     vector<vector<int>>ans;
+        vector<int>res;
+        sort(nums.begin(),nums.end());
+        f(0,nums,res,ans);
+        return ans;
+    }
